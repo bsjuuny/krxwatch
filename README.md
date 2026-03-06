@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 금 & 석유 시세 물리 대시보드
 
-## Getting Started
+Matter.js 물리 엔진을 활용한 인터랙티브 금 및 석유 시세 조회 대시보드입니다.
 
-First, run the development server:
+## 🎮 특징
+
+- **물리 기반 인터랙션**: 데이터 카드가 중력에 의해 떨어지고 서로 충돌합니다
+- **마우스 드래그**: 카드를 집어서 던질 수 있습니다
+- **실시간 API 연동**: 공공데이터포털에서 금/석유 시세 데이터를 가져옵니다
+- **색상 구분**: 금(황금색), 석유(녹색), 오류(빨간색)
+
+## 🚀 시작하기
+
+### 1. 의존성 설치
+
+```bash
+npm install
+```
+
+### 2. 환경 변수 설정
+
+`.env.local` 파일을 생성하고 API 키를 입력하세요:
+
+```bash
+cp .env.local.example .env.local
+```
+
+`.env.local` 파일 내용:
+```
+NEXT_PUBLIC_API_KEY=여기에_공공데이터포털_API_키_입력
+```
+
+### 3. 개발 서버 실행
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+브라우저에서 [http://localhost:3000](http://localhost:3000) 접속
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📊 API 명세
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 금 시세 (getGoldPriceInfo)
+- 종목명 (itmsNm)
+- 종가 (clpr)
+- 등락률 (fltRt)
 
-## Learn More
+### 석유 시세 (getOilPriceInfo)
+- 유종 (oilCtg): 휘발유, 경유, 등유, LPG
+- 가중평균가격 (wtAvgPrcCptn)
+- 거래량 (trqu)
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 기술 스택
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework**: Next.js 14+ (App Router)
+- **Physics Engine**: Matter.js
+- **Styling**: Tailwind CSS
+- **HTTP Client**: Axios
+- **Language**: TypeScript
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📁 프로젝트 구조
 
-## Deploy on Vercel
+```
+src/
+├── app/
+│   ├── layout.tsx      # 레이아웃 컴포넌트
+│   ├── page.tsx        # 메인 페이지
+│   └── globals.css     # 전역 스타일
+├── components/
+│   └── PhysicsCanvas.tsx  # Matter.js 물리 캔버스
+└── utils/
+    └── api.ts          # API 호출 유틸리티
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ⚠️ 주의사항
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Node.js 20.9.0 이상이 필요합니다
+- 공공데이터포털 API 키가 필요합니다
+- 주말/공휴일에는 시세 데이터가 없을 수 있습니다
+
+## 📝 라이선스
+
+MIT License
